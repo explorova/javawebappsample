@@ -22,11 +22,13 @@ node {
       def resourceGroup = 'QuickstartJenkins-rg'
       def webAppName = 'explorovapipe'
       // login Azure
-      withCredentials([azureServicePrincipal(credentialsId: 'cicdServicePrincipal', clientSecretVariable: 'AZURE_CLIENT_SECRET', clientIdVariable: 'AZURE_CLIENT_ID')]) {
-       sh '''
+      withCredentials([azureServicePrincipal('cicdServicePrincipal']) {
+        print 'test'
+        sh '''
           az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET -t $AZURE_TENANT_ID
-          
         '''
+
+        
       }
       // get publish settings
       def pubProfilesJson = sh script: "az webapp deployment list-publishing-profiles -g $resourceGroup -n $webAppName", returnStdout: true
