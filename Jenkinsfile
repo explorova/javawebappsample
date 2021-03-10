@@ -22,7 +22,7 @@ node {
       def resourceGroup = 'QuickstartJenkins-rg'
       def webAppName = 'explorovapipe'
       // login Azure
-      withCredentials([usernamePassword(credentialsId: 'd7824216-68b5-4fde-b29b-ce414d3532eb', passwordVariable: 'AZURE_CLIENT_SECRET', usernameVariable: 'AZURE_CLIENT_ID')]) {
+      withCredentials([usernamePassword(credentialsId: 'cicdServicePrincipal', passwordVariable: 'AZURE_CLIENT_SECRET', usernameVariable: 'AZURE_CLIENT_ID')]) {
        sh '''
           az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET -t $AZURE_TENANT_ID
           az account set -s $AZURE_SUBSCRIPTION_ID
